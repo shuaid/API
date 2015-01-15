@@ -476,15 +476,59 @@ List all public attendees.
 
 ## Event Administrators [/events/{eventId}/administrators]
 
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+                "id": "ba8414da-4439-4ed1-8bda-5caf0b759f9e",
+                "firstName": "Barrett",
+                "lastName": "Chaney",
+                "phone": "61 2 6583 3505",
+                "email": "barrettchaney@zilphur.com"
+            
+            }
+        ]
+        ```
+
 ### /events/{eventId}/administrators [GET]
 
 + Response 200 
 
+    [Event Administrators][]
+
 ## Accommodation [/events/{eventId}/accommodation]
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        {
+            "id": "fdc89a93-cb04-4f4b-9cc9-8d126286cb5c",
+            "hotelName": "Mandarin Oriental",
+            "hotelAddress": {
+                "address1": "691 Jefferson Avenue",
+                "address2": "Elit officia dolore amet incididunt tempor",
+                "suburb": "Fresno",
+                "state": "VIC",
+                "postcode": 2045,
+                "country": "Australia"
+            },
+            "roomName": "Deluxe Park View Room",
+            "roomType": "Single",
+            "checkinDateTime": "2015-10-14T00:03:48+00:00",
+            "checkoutDateTime": "2015-10-16T00:03:48+00:00"
+          }
+        ```
 
 ### /events/{eventId}/accommodation [GET]
 
 + Response 200 
+
+    [Accommodation][]
 
 ## Transportation [/events/{eveintId}/transportation]
 
@@ -529,7 +573,7 @@ List all public attendees.
 + Response 200 
 
 ## Event Feed [/events/{eventId}/feed]
-The feed of posts (including status updates) and links published by event coordinators.
+The feed of posts (including status updates) and links published by event administrators.
 
 ### /events/{eventId}/feed [GET]
 
