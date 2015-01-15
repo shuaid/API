@@ -3,18 +3,18 @@ FORMAT: 1A
 # Company Directors API
 
 ## Introduction
-With the Company Directors API, you can programmatically access certain Company Directors' recources.
+With the Company Directors API, you can programmatically access various Company Directors' recources. 
 
 ## Current Version
 
 ## Authentication
-Company Directors API uses OAuth 2.0 Authorization. Event API calls are made on behalf of an authenticated user must include a token in the "Authorization" header. The token is aquired through Company Directors' Auth Server. 
+Company Directors API uses OAuth 2.0 Authorization. API calls are made on behalf of an authenticated user must include a token in the "Authorization" header. The token is aquired through Company Directors' Auth Server. 
 
 ```
 Authorization: Bearer tokenString
 ```
 
-For more information about authentication with Company Directors' Auth Server, see [Authenticate with Auth Server](https://docs.companydirectors.com.au/authserver). 
+For more information about authentication with Company Directors' Auth Server, see [Authenticate with Auth Server](https://developers.companydirectors.com.au/docs/authserver). 
 
 ## CORS
 The API supports Cross Origin Resource Sharing (CORS) for AJAX requests from registered origin. 
@@ -45,7 +45,14 @@ This API uses the JSON media-type to represent resources states.
 
 Requests with a message-body are using plain JSON to set or update resource states.
 
-## Error States
+## Response Codes
+The REST API responds to requests with standard HTTP status codes. Error messages are embedded in the JSON response in the event of a validation failure or when the API fails to process your request.
+### Success Response Codes
+| Status Code | Description |
+| ------ | ----------- |
+| 200 OK |  |
+| 204 No data |  |
+### Errors
 The common HTTP Response Status Codes are used.
 
 | Status Code | Description |
@@ -80,9 +87,9 @@ A list of events
             "id": "EV111864",
             "displayName": "ipsum ea sit aliqua irure pariatur est ea",
             "description": "Mollit cupidatat exercitation ea laboris do proident sunt officia nulla tempor eu nulla culpa culpa. In in labore incididunt pariatur sit.\r\nEa nulla voluptate Lorem tempor dolore occaecat officia occaecat cupidatat mollit aute in adipisicing.\r\n",
-            "beginDateTime": "2015-01-14T00:03:48+00:00",
-            "endDateTime": "2015-01-14T00:03:48+00:00",
-            "arrivalDateTime": "2015-01-14T00:03:48+00:00",
+            "beginDateTime": "2015-10-14T00:03:48+00:00",
+            "endDateTime": "2015-10-14T00:03:48+00:00",
+            "arrivalDateTime": "2015-10-14T00:03:48+00:00",
             "dpd": 10,
             "quadrantName": "Organisational",
             "division": "VIC",
@@ -96,36 +103,16 @@ A list of events
             "latitude": -22.427564,
             "longitude": 51.87248,
             "isMultisession": true
-        },
-        {
-            "id": "EV185720",
-            "displayName": "reprehenderit laboris aliquip nulla et laborum est incididunt",
-            "description": "Commodo aliqua eiusmod commodo voluptate ea amet qui incididunt Lorem magna dolore fugiat.\r\nReprehenderit id ad exercitation laboris excepteur minim magna eu in occaecat cupidatat culpa irure officia.\r\n",
-            "beginDateTime": "2015-01-14T00:03:48+00:00",
-            "endDateTime": "2015-01-14T00:03:48+00:00",
-            "arrivalDateTime": "2015-01-14T00:03:48+00:00",
-            "dpd": 10,
-            "quadrantName": "Core",
-            "division": "VIC",
-            "venueName": "excepteur incididunt consequat non adipisicing fugiat",
-            "address1": "530 Rogers Avenue",
-            "address2": "non aute non sint aliqua officia",
-            "suburb": "Vaughn",
-            "state": "VIC",
-            "postcode": 7912,
-            "country": "Australia",
-            "latitude": 46.380092,
-            "longitude": -45.351569,
-            "isMultisession": true
         }
     ]
         ```
         
 ### /events{?from}{?to} [GET]
+Get events by dates.
 
 + Parameters
-    + from (optional, date, `2015-01-01`) ... Only Events from this date are returned, defaults to now.
-    + to (optional, date, `2015-01-31`) ... Only Events to this date are returned, defaults to one month from now.
+    + from (optional, date, `2015-10-01`) ... Only Events from this date are returned, defaults to now.
+    + to (optional, date, `2015-10-31`) ... Only Events to this date are returned, defaults to one month from now.
     
 + Response 200
 
@@ -134,6 +121,7 @@ A list of events
 ## Search events [/events/registered{?term}]
 
 ### /events/search{?term} [GET]
+Search upcoming events by event name.
 
 + Parameters
     + term (required, string, `Directors+Briefing`) ... Search term (e.g. "Directors Briefing"). Make sure to URL encode the search term before making the request.
@@ -142,16 +130,16 @@ A list of events
 
     [Events][]
 
-## Registered Events [/events/registered{?state}]
+## Registered Events [/events/registered{?type}]
 A list of registered events of the current authenticated user
 
 + Authentication required
 
-### /events/registered{?state} [GET]
+### /events/registered{?type} [GET]
 
 
 + Parameters
-    + state (required, string, `open`) ... One of: **open**, **closed**. Specifying `open` will get registered upcoming events. Specifying `closed` will get registered past events.
+    + type (required, string, `open`) ... One of: **open**, **closed**. Specifying `open` will get registered upcoming events. Specifying `closed` will get registered past events.
 
 + Request
 
@@ -167,7 +155,7 @@ A list of registered events of the current authenticated user
 A single event
 
 + Parameters
-    + eventId (required, string, `EV121339`) ... ID of an Event 
+    + eventId (required, string, `EV169971`) ... ID of an Event 
 
 + Model (application/json)
 
@@ -178,9 +166,9 @@ A single event
             "id": "EV169971",
             "displayName": "mollit enim velit dolore proident non excepteur proident",
             "description": "Consequat sunt dolore nostrud do pariatur do est anim enim. In voluptate dolor nulla ea aliquip et esse dolor. Non in aliqua aliquip irure proident. Amet non adipisicing exercitation ea dolore id dolore cillum proident adipisicing.\r\nIpsum aliqua elit fugiat amet dolore aliqua occaecat proident aute ea irure. Elit ex dolor eu velit deserunt ad duis et laboris commodo non ea. Lorem dolor deserunt ad ut occaecat occaecat tempor laboris id in. Duis elit irure excepteur ipsum qui excepteur eiusmod voluptate elit dolor. Ipsum excepteur mollit laborum culpa non excepteur amet consequat exercitation elit aute incididunt. Anim eiusmod dolore minim aute occaecat laboris.\r\n",
-            "beginDateTime": "2015-01-13T23:41:24+00:00",
-            "endDateTime": "2015-01-13T23:41:24+00:00",
-            "arrivalDateTime": "2015-01-13T23:41:24+00:00",
+            "beginDateTime": "2015-10-13T23:41:24+00:00",
+            "endDateTime": "2015-10-13T23:41:24+00:00",
+            "arrivalDateTime": "2015-10-13T23:41:24+00:00",
             "dpd": 16,
             "quadrantName": "Individual",
             "division": "National",
@@ -264,6 +252,7 @@ A single event
         ```
         
 ### /events/{eventId} [GET]
+Get an event by event ID.
 
 + Response 200
 
@@ -281,15 +270,8 @@ A single event
                 "id": "EV100489",
                 "displayName": "occaecat labore est ex ad fugiat nulla fugiat",
                 "description": "Excepteur esse commodo irure fugiat excepteur fugiat nostrud.\r\nAd dolore quis irure mollit culpa cillum ea fugiat tempor Lorem incididunt ipsum. Minim sunt consequat consequat in proident.\r\n",
-                "beginDateTime": "2015-01-14T01:39:23+00:00",
-                "endDateTime": "2015-01-14T01:39:23+00:00"
-            },
-            {
-                "id": "EV177632",
-                "displayName": "deserunt culpa exercitation esse ipsum duis eiusmod duis",
-                "description": "Sunt laboris labore aliqua eu irure. Et eu elit occaecat esse cupidatat.\r\nIpsum aliquip cillum qui officia sit.\r\n",
-                "beginDateTime": "2015-01-14T01:39:23+00:00",
-                "endDateTime": "2015-01-14T01:39:23+00:00"
+                "beginDateTime": "2015-10-14T01:39:23+00:00",
+                "endDateTime": "2015-10-14T01:39:23+00:00"
             }
         ]
         ```
@@ -312,11 +294,11 @@ Get a list of sessions for an event.
     
         ```
         {
-            "id": "EV165894",
+            "id": "EV121339",
             "displayName": "nulla et consequat eiusmod nisi aute nostrud consectetur",
             "description": "Culpa qui non elit qui mollit et fugiat et duis qui sit do sint consectetur.\r\nOfficia sit tempor eu aliqua amet. Reprehenderit pariatur et officia magna velit sunt enim occaecat in.\r\n",
-            "beginDateTime": "2015-01-14T01:35:57+00:00",
-            "endDateTime": "2015-01-14T01:35:57+00:00"
+            "beginDateTime": "2015-10-14T01:35:57+00:00",
+            "endDateTime": "2015-10-14T01:35:57+00:00"
         }
         ```
 
@@ -364,12 +346,6 @@ Get a session by session ID.
                 "name": "Larsen Garrison FAICD",
                 "bio": "Dolore Lorem laborum laboris aliqua commodo est tempor sunt.r\nSint tempor cupidatat eu in mollit quis. Eu consequat sunt ex reprehenderit esse laborum sunt est et in enim aute dolor.\r\n",
                 "photoUrl": "https://media.companydirectors.com.au/photos/vu9kq9i19k9.jpg"
-            },
-            {
-                "id": "1942836",
-                "name": "Millicent Clarke FAICD",
-                "bio": "Consequat ullamco aute minim aute consectetur qui culpa qui qui voluptate.\r\nDolore quis duis occaecat in cupidatat enim exercitation amet.\r\n",
-                "photoUrl": "https://media.companydirectors.com.au/photos/4jzaw83q5mi.jpg"
             }
         ]
         ```
@@ -432,20 +408,6 @@ Get speakers of a session.
                 "linkedInUrl": "http://www.linkedin.com/in/haum1da38fr",
                 "twitterUrl": "http://www.twitter.com/p8wfd6de7b9",
                 "facebookUrl": "http://www.facebook.com/876lh74lsor"
-            },
-            {
-                "id": "1651049",
-                "firstName": "Weber",
-                "lastName": "Wolf",
-                "salutation": "Ms",
-                "postNominal": "GAICD",
-                "jobTitle": "dolore aliqua",
-                "organisation": "ullamco voluptate irure tempor",
-                "bio": "Proident nulla aute nulla Lorem elit labore do duis elit sint eu elit sint.\r\nSint tempor sint est ea proident elit eiusmod laborum fugiat anim cillum ex enim.\r\n",
-                "photoUrl": "https://media.companydirectors.com.au/photos/uzokfadzpvi.jpg",
-                "linkedInUrl": "http://www.linkedin.com/in/q605cr0y66r",
-                "twitterUrl": "http://www.twitter.com/5uemcu6usor",
-                "facebookUrl": "http://www.facebook.com/5evr9j54s4i"
             }
         ]
         ```
@@ -491,13 +453,42 @@ List all public attendees.
 
 ## Sponsors [/events/{eventId}/sponsors]
 
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+            "id": "1854cabb-032d-4fb1-943c-9a7b43b707dd",
+            "name": "KPMG",
+            "logoUrl": "https://media.companydirectors.com.au/photos/e9hrdym0a4i.gif",
+            "websiteUrl": "http://www.kpmg.com.au"
+            }
+        ]
+        ```
+
 ### /events/{eventId}/sponsors [GET]
 
 + Response 200
 
-## Internal Contacts [/events/{eventId}/internalcontacts]
+    [Sponsors][]
 
-### /events/{eventId}/internalcontacts [GET]
+## Event Administrators [/events/{eventId}/administrators]
+
+### /events/{eventId}/administrators [GET]
+
++ Response 200 
+
+## Accommodation [/events/{eventId}/accommodation]
+
+### /events/{eventId}/accommodation [GET]
+
++ Response 200 
+
+## Transportation [/events/{eveintId}/transportation]
+
+### /events/{eveintId}/transportation [GET]
 
 + Response 200 
 
@@ -549,29 +540,3 @@ The feed of posts (including status updates) and links published by event coordi
 ### /events/{eventId}/twitterhashtags [GET]
 
 + Response 200 
-
-## Accommodation [/events/{eventId}/accommodation]
-
-### /events/{eventId}/accommodation [GET]
-
-+ Response 200 
-
-## Transportation [/events/{eveintId}/transportation]
-
-### /events/{eveintId}/transportation [GET]
-
-+ Response 200 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
