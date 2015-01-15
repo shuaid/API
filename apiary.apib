@@ -1,46 +1,577 @@
 FORMAT: 1A
 
 # Company Directors API
-Notes API is a *short texts saving* service similar to its physical paper presence on your table.
 
-# Group Notes
-Notes related resources of the **Notes API**
+## Introduction
+With the Company Directors API, you can programmatically access certain Company Directors' recources.
 
-## Notes Collection [/notes]
-### List all Notes [GET]
-+ Response 200 (application/json)
+## Current Version
 
-        [{
-          "id": 1, "title": "Jogging in park"
-        }, {
-          "id": 2, "title": "Pick-up posters from post-office"
-        }]
+## Authentication
+Company Directors API uses OAuth 2.0 Authorization. Event API calls are made on behalf of an authenticated user must include a token in the "Authorization" header. The token is aquired through Company Directors' Auth Server. 
 
-### Create a Note [POST]
-+ Request (application/json)
+```
+Authorization: Bearer tokenString
+```
 
-        { "title": "Buy cheese and bread for breakfast." }
+For more information about authentication with Company Directors' Auth Server, see [Authenticate with Auth Server](https://docs.companydirectors.com.au/authserver). 
 
-+ Response 201 (application/json)
+## CORS
+The API supports Cross Origin Resource Sharing (CORS) for AJAX requests from registered origin. 
 
-        { "id": 3, "title": "Buy cheese and bread for breakfast." }
+Here's a sample request sent from a browser hitting `https://clientdomain.com`:
 
-## Note [/notes/{id}]
-A single Note object with all its details
+```
+$ curl -i https://api.github.com -H "Origin: https://clientdomain.com"
+HTTP/1.1 302 Found
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+```
 
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+This is what the CORS preflight request looks like:
 
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
+```
+$ curl -i https://api.github.com -H "Origin: https://clientdomain.com" -X OPTIONS
+HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since
+Access-Control-Allow-Methods: GET, POST
+Access-Control-Max-Age: 86400
+Access-Control-Allow-Credentials: true
+```
 
-    + Header
+## Media Types
+This API uses the JSON media-type to represent resources states.
 
-            X-My-Header: The Value
+Requests with a message-body are using plain JSON to set or update resource states.
+
+## Error States
+The common HTTP Response Status Codes are used.
+
+| Status Code | Description |
+| ------ | ----------- |
+| 401 Unauthorized | Your credentials are incorrect.  |
+| 403 Forbidden | You provided the wrong credentials. |
+| 404 Not Found | The resource you specified was not found. |
+| 406 Not Acceptable | The format you requested is not available. |
+| 500 Internal Server Error | A server error occurred. |
+
+## Pagination
+Requests that return multiple items will be paginated to 30 items by default. You can specify further pages with the `?page` parameter. 
+
+```
+$curl 'https://api.companydirectors.com.au/events/search?term=Directors+Briefing&page=2'
+```
+
+Note that page numbering is 1-based and that omitting the `?page` parameter will return the first page.
+
+# Group Event
+
+## Events [/events{?from}{?to}]
+A list of events
+
++ Model (application/json)
 
     + Body
+    
+        ```
+    [
+        {
+            "id": "EV111864",
+            "displayName": "ipsum ea sit aliqua irure pariatur est ea",
+            "description": "Mollit cupidatat exercitation ea laboris do proident sunt officia nulla tempor eu nulla culpa culpa. In in labore incididunt pariatur sit.\r\nEa nulla voluptate Lorem tempor dolore occaecat officia occaecat cupidatat mollit aute in adipisicing.\r\n",
+            "beginDateTime": "2015-01-14T00:03:48+00:00",
+            "endDateTime": "2015-01-14T00:03:48+00:00",
+            "arrivalDateTime": "2015-01-14T00:03:48+00:00",
+            "dpd": 10,
+            "quadrantName": "Organisational",
+            "division": "VIC",
+            "venueName": "fugiat sit eu nisi non cupidatat",
+            "address1": "691 Jefferson Avenue",
+            "address2": "elit officia dolore amet incididunt tempor",
+            "suburb": "Fresno",
+            "state": "VIC",
+            "postcode": 2045,
+            "country": "Australia",
+            "latitude": -22.427564,
+            "longitude": 51.87248,
+            "isMultisession": true
+        },
+        {
+            "id": "EV185720",
+            "displayName": "reprehenderit laboris aliquip nulla et laborum est incididunt",
+            "description": "Commodo aliqua eiusmod commodo voluptate ea amet qui incididunt Lorem magna dolore fugiat.\r\nReprehenderit id ad exercitation laboris excepteur minim magna eu in occaecat cupidatat culpa irure officia.\r\n",
+            "beginDateTime": "2015-01-14T00:03:48+00:00",
+            "endDateTime": "2015-01-14T00:03:48+00:00",
+            "arrivalDateTime": "2015-01-14T00:03:48+00:00",
+            "dpd": 10,
+            "quadrantName": "Core",
+            "division": "VIC",
+            "venueName": "excepteur incididunt consequat non adipisicing fugiat",
+            "address1": "530 Rogers Avenue",
+            "address2": "non aute non sint aliqua officia",
+            "suburb": "Vaughn",
+            "state": "VIC",
+            "postcode": 7912,
+            "country": "Australia",
+            "latitude": 46.380092,
+            "longitude": -45.351569,
+            "isMultisession": true
+        }
+    ]
+        ```
+        
+### /events{?from}{?to} [GET]
 
-            { "id": 2, "title": "Pick-up posters from post-office" }
++ Parameters
+    + from (optional, date, `2015-01-01`) ... Only Events from this date are returned, defaults to now.
+    + to (optional, date, `2015-01-31`) ... Only Events to this date are returned, defaults to one month from now.
+    
++ Response 200
 
-### Remove a Note [DELETE]
-+ Response 204
+    [Events][]
+    
+## Search events [/events/registered{?term}]
+
+### /events/search{?term} [GET]
+
++ Parameters
+    + term (required, string, `Directors+Briefing`) ... Search term (e.g. "Directors Briefing"). Make sure to URL encode the search term before making the request.
+    
++ Response 200
+
+    [Events][]
+
+## Registered Events [/events/registered{?state}]
+A list of registered events of the current authenticated user
+
++ Authentication required
+
+### /events/registered{?state} [GET]
+
+
++ Parameters
+    + state (required, string, `open`) ... One of: **open**, **closed**. Specifying `open` will get registered upcoming events. Specifying `closed` will get registered past events.
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer tokenString
+    
++ Response 200
+
+    [Events][]
+
+## Event [/events/{eventId}]
+A single event
+
++ Parameters
+    + eventId (required, string, `EV121339`) ... ID of an Event 
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        {
+            "id": "EV169971",
+            "displayName": "mollit enim velit dolore proident non excepteur proident",
+            "description": "Consequat sunt dolore nostrud do pariatur do est anim enim. In voluptate dolor nulla ea aliquip et esse dolor. Non in aliqua aliquip irure proident. Amet non adipisicing exercitation ea dolore id dolore cillum proident adipisicing.\r\nIpsum aliqua elit fugiat amet dolore aliqua occaecat proident aute ea irure. Elit ex dolor eu velit deserunt ad duis et laboris commodo non ea. Lorem dolor deserunt ad ut occaecat occaecat tempor laboris id in. Duis elit irure excepteur ipsum qui excepteur eiusmod voluptate elit dolor. Ipsum excepteur mollit laborum culpa non excepteur amet consequat exercitation elit aute incididunt. Anim eiusmod dolore minim aute occaecat laboris.\r\n",
+            "beginDateTime": "2015-01-13T23:41:24+00:00",
+            "endDateTime": "2015-01-13T23:41:24+00:00",
+            "arrivalDateTime": "2015-01-13T23:41:24+00:00",
+            "dpd": 16,
+            "quadrantName": "Individual",
+            "division": "National",
+            "venueName": "enim mollit labore incididunt et eiusmod",
+            "address1": "706 Bushwick Avenue",
+            "address2": "sunt ullamco excepteur irure ea nostrud",
+            "suburb": "Norfolk",
+            "state": "SA",
+            "postcode": 5720,
+            "country": "Australia",
+            "latitude": 30.502864,
+            "longitude": -174.433674,
+            "isMultisession": true
+        }
+        ```
+
+    + Schema
+        ```
+        {
+            "description"": "An event",
+            "type": "object",
+            "properties": {
+            "id": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "beginDateTime": {
+              "type": "string"
+            },
+            "endDateTime": {
+              "type": "string"
+            },
+            "arrivalDateTime": {
+              "type": "string"
+            },
+            "dpd": {
+              "type": "integer"
+            },
+            "quadrantName": {
+              "type": "string"
+            },
+            "division": {
+              "type": "string"
+            },
+            "venueName": {
+              "type": "string"
+            },
+            "address1": {
+              "type": "string"
+            },
+            "address2": {
+              "type": "string"
+            },
+            "suburb": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "postcode": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            },
+            "isMultisession": {
+              "type": "boolean"
+            }
+        }
+        ```
+        
+### /events/{eventId} [GET]
+
++ Response 200
+
+    [Event][]
+   
+## Sessions [/events/{eventId}/sessions]
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+                "id": "EV100489",
+                "displayName": "occaecat labore est ex ad fugiat nulla fugiat",
+                "description": "Excepteur esse commodo irure fugiat excepteur fugiat nostrud.\r\nAd dolore quis irure mollit culpa cillum ea fugiat tempor Lorem incididunt ipsum. Minim sunt consequat consequat in proident.\r\n",
+                "beginDateTime": "2015-01-14T01:39:23+00:00",
+                "endDateTime": "2015-01-14T01:39:23+00:00"
+            },
+            {
+                "id": "EV177632",
+                "displayName": "deserunt culpa exercitation esse ipsum duis eiusmod duis",
+                "description": "Sunt laboris labore aliqua eu irure. Et eu elit occaecat esse cupidatat.\r\nIpsum aliquip cillum qui officia sit.\r\n",
+                "beginDateTime": "2015-01-14T01:39:23+00:00",
+                "endDateTime": "2015-01-14T01:39:23+00:00"
+            }
+        ]
+        ```
+
+### /events/{eventId}/sessions [GET]
+Get a list of sessions for an event.
+
++ Response 200
+
+    [Sessions][]
+
+## Session [/sessions/{sessionId}]
+
++ Parameters
+    + sessionId (required, string, `EV121339`) ... ID of a session 
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        {
+            "id": "EV165894",
+            "displayName": "nulla et consequat eiusmod nisi aute nostrud consectetur",
+            "description": "Culpa qui non elit qui mollit et fugiat et duis qui sit do sint consectetur.\r\nOfficia sit tempor eu aliqua amet. Reprehenderit pariatur et officia magna velit sunt enim occaecat in.\r\n",
+            "beginDateTime": "2015-01-14T01:35:57+00:00",
+            "endDateTime": "2015-01-14T01:35:57+00:00"
+        }
+        ```
+
+    + Schema
+        ```
+        {
+            "description"": "A session",
+            "type": "object",
+            "properties": {
+            "id": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "beginDateTime": {
+              "type": "string"
+            },
+            "endDateTime": {
+              "type": "string"
+            }
+        }
+        ```
+
+### /sessions/{sessionId} [GET]
+Get a session by session ID.
+
++ Response 200
+
+    [Session][]
+
+## Event Speakers [/events/{eventId}/speakers]
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+                "id": "1623965",
+                "name": "Larsen Garrison FAICD",
+                "bio": "Dolore Lorem laborum laboris aliqua commodo est tempor sunt.r\nSint tempor cupidatat eu in mollit quis. Eu consequat sunt ex reprehenderit esse laborum sunt est et in enim aute dolor.\r\n",
+                "photoUrl": "https://media.companydirectors.com.au/photos/vu9kq9i19k9.jpg"
+            },
+            {
+                "id": "1942836",
+                "name": "Millicent Clarke FAICD",
+                "bio": "Consequat ullamco aute minim aute consectetur qui culpa qui qui voluptate.\r\nDolore quis duis occaecat in cupidatat enim exercitation amet.\r\n",
+                "photoUrl": "https://media.companydirectors.com.au/photos/4jzaw83q5mi.jpg"
+            }
+        ]
+        ```
+
+### /events/{eventId}/speakers [GET]
+Get speakers of an event.
+
++ Response 200
+
+    [Event Speakers][]
+
+## Session Speakers [/sessions/{sessionId}/speakers]
+
+### /sessions/{sessionId}/speakers [GET]
+Get speakers of a session.
+
++ Response 200
+
+    [Event Speakers][]
+
+## Speaker [/speakers/{speakerId}]
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        {
+            "id": "1304625",
+            "name": "Consuelo Malone MAICD",
+            "bio": "Culpa voluptate veniam amet cupidatat non veniam ad velit nisi velit id aliqua velit.\r\nExercitation commodo duis est elit commodo consectetur consectetur voluptate.\r\n",
+            "photoUrl": "https://media.companydirectors.com.au/photos/mdah478pvi.jpg"
+        }
+        ```
+
+### /speakers/{speakerId} [GET]
+
++ Response 200
+
+    [Speaker][]
+
+## Attendees [/events/{eventId}/attendees]
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+                "id": "1097543",
+                "firstName": "Bettie",
+                "lastName": "Davenport",
+                "salutation": "Dr",
+                "postNominal": "FAICD",
+                "jobTitle": "commodo velit",
+                "organisation": "laboris tempor proident proident",
+                "bio": "Dolore culpa mollit aliquip anim eu.\r\nEsse voluptate sunt do velit aute cillum et sunt consectetur ipsum sunt non.\r\n",
+                "photoUrl": "https://media.companydirectors.com.au/photos/e9hrdym0a4i.jpg",
+                "linkedInUrl": "http://www.linkedin.com/in/haum1da38fr",
+                "twitterUrl": "http://www.twitter.com/p8wfd6de7b9",
+                "facebookUrl": "http://www.facebook.com/876lh74lsor"
+            },
+            {
+                "id": "1651049",
+                "firstName": "Weber",
+                "lastName": "Wolf",
+                "salutation": "Ms",
+                "postNominal": "GAICD",
+                "jobTitle": "dolore aliqua",
+                "organisation": "ullamco voluptate irure tempor",
+                "bio": "Proident nulla aute nulla Lorem elit labore do duis elit sint eu elit sint.\r\nSint tempor sint est ea proident elit eiusmod laborum fugiat anim cillum ex enim.\r\n",
+                "photoUrl": "https://media.companydirectors.com.au/photos/uzokfadzpvi.jpg",
+                "linkedInUrl": "http://www.linkedin.com/in/q605cr0y66r",
+                "twitterUrl": "http://www.twitter.com/5uemcu6usor",
+                "facebookUrl": "http://www.facebook.com/5evr9j54s4i"
+            }
+        ]
+        ```
+
+### /events/{eventId}/attendees [GET]
+List all public attendees.
+
++ Response 200
+
+    [Attendees][]
+
+## Attendee [/attendees/{attendeeId}]
+
++ Parameters
+    + attendeeId (required, string, `1453064`) ... ID of an attendee. 
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        {
+            "id": "1453064",
+            "firstName": "Martinez",
+            "lastName": "Mason",
+            "salutation": "Dr",
+            "postNominal": "FAICD",
+            "jobTitle": "adipisicing tempor",
+            "organisation": "nulla elit veniam Lorem",
+            "bio": "Laborum fugiat laborum aliquip amet labore.\r\nLorem Lorem incididunt ex et cillum elit adipisicing. Est dolor velit sint tempor quis et quis dolor duis culpa duis.\r\n",
+            "photoUrl": "https://media.companydirectors.com.au/photos/2b0ejfnipb9.jpg",
+            "linkedInUrl": "http://www.linkedin.com/in/nflepfd2t9",
+            "twitterUrl": "http://www.twitter.com/zw8aw1p2e29",
+            "facebookUrl": "http://www.facebook.com/juugwszia4i"
+        }
+        ```
+
+### /attendees/{attendeeId} [GET]
+
++ Response 200
+
+    [Attendee][]
+
+## Sponsors [/events/{eventId}/sponsors]
+
+### /events/{eventId}/sponsors [GET]
+
++ Response 200
+
+## Internal Contacts [/events/{eventId}/internalcontacts]
+
+### /events/{eventId}/internalcontacts [GET]
+
++ Response 200 
+
+## Event Notes [/events/{eventId}/notes]
+
+### /events/{eventId}/notes [GET]
+
++ Response 200 
+
+## Session Notes [/sessions/{sessionId}/notes]
+
+### /sessions/{sessionId}/notes [GET]
+
++ Response 200 
+
+## Event Polls [/events/{eventId}/polls]
+
+### /events/{eventId}/polls [GET]
+
++ Response 200 
+
+## Session Polls [/sessions/{sessionId}/polls]
+
+### /sessions/{sessionId}/polls [GET]
+
++ Response 200 
+
+## Event Surveys [/events/{eventId}/surveys]
+
+### /events/{eventId}/surveys [GET]
+
++ Response 200 
+
+## Session Surveys [/sessions/{sessionId}/surveys]
+
+### /sessions/{sessionId}/surveys [GET]
+
++ Response 200 
+
+## Event Feed [/events/{eventId}/feed]
+The feed of posts (including status updates) and links published by event coordinators.
+
+### /events/{eventId}/feed [GET]
+
++ Response 200 
+
+## Twitter Hash Tags [/events/{eventId}/twitterhashtags]
+
+### /events/{eventId}/twitterhashtags [GET]
+
++ Response 200 
+
+## Accommodation [/events/{eventId}/accommodation]
+
+### /events/{eventId}/accommodation [GET]
+
++ Response 200 
+
+## Transportation [/events/{eveintId}/transportation]
+
+### /events/{eveintId}/transportation [GET]
+
++ Response 200 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
