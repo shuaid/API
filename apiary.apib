@@ -130,16 +130,16 @@ Search upcoming events by event name.
 
     [Events][]
 
-## Registered Events [/events/registered{?type}]
+## Registered Events [/events/registered{?status}]
 A list of registered events of the current authenticated user
 
 + Authentication required
 
-### /events/registered{?type} [GET]
+### /events/registered{?status} [GET]
 
 
 + Parameters
-    + type (required, string, `open`) ... One of: **open**, **closed**. Specifying `open` will get registered upcoming events. Specifying `closed` will get registered past events.
+    + status (required, string, `open`) ... One of: **open**, **closed**. Specifying `open` will get registered upcoming events. Specifying `closed` will get registered past events.
 
 + Request
 
@@ -474,7 +474,7 @@ List all public attendees.
 
     [Sponsors][]
 
-## Event Administrators [/events/{eventId}/administrators]
+## Administrators [/events/{eventId}/administrators]
 
 + Model (application/json)
 
@@ -497,7 +497,7 @@ List all public attendees.
 
 + Response 200 
 
-    [Event Administrators][]
+    [Administrators][]
 
 ## Accommodation [/events/{eventId}/accommodation]
 
@@ -532,31 +532,49 @@ List all public attendees.
 
 ## Transportation [/events/{eveintId}/transportation]
 
++ Model (application/json)
+
+    + Body
+    
+        ```
+        {
+            "id": "96c7c260-9403-4913-970d-a0994cf813f8",
+            "description": "Pariatur ipsum aute sit eu ad.\r\nCommodo id laboris pariatur velit.\r\n"
+        }
+        ```  
+
 ### /events/{eveintId}/transportation [GET]
 
 + Response 200 
 
-## Event Notes [/events/{eventId}/notes]
+    [Transportation][]
+
+## Notes [/events/{eventId}/note]
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+                "id": "ffa0bd65-15ed-4280-bec1-ce401dd85dae",
+                "content": "Ea ea laborum irure et pariatur.\r\nMagna occaecat qui nostrud commodo magna nulla.\r\n",
+                "createdDateTme": "2014-10-14T00:03:48+00:00",
+                "updatedDateTime": "2014-10-16T00:03:48+00:00"
+            }
+        ]
+        ```  
 
 ### /events/{eventId}/notes [GET]
 
 + Response 200 
 
-## Session Notes [/sessions/{sessionId}/notes]
-
-### /sessions/{sessionId}/notes [GET]
-
-+ Response 200 
+    [Notes][]
 
 ## Event Polls [/events/{eventId}/polls]
 
 ### /events/{eventId}/polls [GET]
-
-+ Response 200 
-
-## Session Polls [/sessions/{sessionId}/polls]
-
-### /sessions/{sessionId}/polls [GET]
 
 + Response 200 
 
@@ -566,16 +584,10 @@ List all public attendees.
 
 + Response 200 
 
-## Session Surveys [/sessions/{sessionId}/surveys]
-
-### /sessions/{sessionId}/surveys [GET]
-
-+ Response 200 
-
-## Event Feed [/events/{eventId}/feed]
+## Event Feed [/events/{eventId}/feeds]
 The feed of posts (including status updates) and links published by event administrators.
 
-### /events/{eventId}/feed [GET]
+### /events/{eventId}/feeds [GET]
 
 + Response 200 
 
