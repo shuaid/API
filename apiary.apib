@@ -6,6 +6,11 @@ FORMAT: 1A
 With the Company Directors API, you can programmatically access various Company Directors' recources. 
 
 ## Current Version
+The current version is listed below. Development on previous versions of the API will be limited to severe bug fixes only. 
+
+| Version | Host |
+| ------ | ----------- |
+| V1 | https://api.companydirectors.com.au/v1 |
 
 ## Authentication
 Company Directors API uses OAuth 2.0 Authorization. API calls are made on behalf of an authenticated user must include a token in the "Authorization" header. The token is aquired through Company Directors' Auth Server. 
@@ -22,7 +27,7 @@ The API supports Cross Origin Resource Sharing (CORS) for AJAX requests from reg
 Here's a sample request sent from a browser hitting `https://clientdomain.com`:
 
 ```
-$ curl -i https://api.github.com -H "Origin: https://clientdomain.com"
+$ curl -i https://api.companydirectors.com.au/v1 -H "Origin: https://clientdomain.com"
 HTTP/1.1 302 Found
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Credentials: true
@@ -31,7 +36,7 @@ Access-Control-Allow-Credentials: true
 This is what the CORS preflight request looks like:
 
 ```
-$ curl -i https://api.github.com -H "Origin: https://clientdomain.com" -X OPTIONS
+$ curl -i https://api.companydirectors.com.au/v1 -H "Origin: https://clientdomain.com" -X OPTIONS
 HTTP/1.1 204 No Content
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Headers: Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since
@@ -47,18 +52,14 @@ Requests with a message-body are using plain JSON to set or update resource stat
 
 ## Response Codes
 The REST API responds to requests with standard HTTP status codes. Error messages are embedded in the JSON response in the event of a validation failure or when the API fails to process your request.
-### Success Response Codes
-| Status Code | Description |
-| ------ | ----------- |
-| 200 OK |  |
-| 204 No data |  |
+
 ### Errors
 The common HTTP Response Status Codes are used.
 
 | Status Code | Description |
 | ------ | ----------- |
-| 401 Unauthorized | Your credentials are incorrect.  |
-| 403 Forbidden | You provided the wrong credentials. |
+| 401 Unauthorized | Authentication credentials were missing or incorrect.  |
+| 403 Forbidden | The request has been refused or access is not allowed. |
 | 404 Not Found | The resource you specified was not found. |
 | 406 Not Acceptable | The format you requested is not available. |
 | 500 Internal Server Error | A server error occurred. |
