@@ -86,22 +86,9 @@ A list of events
         {
             "id": "EV111864",
             "displayName": "ipsum ea sit aliqua irure pariatur est ea",
-            "description": "Mollit cupidatat exercitation ea laboris do proident sunt officia nulla tempor eu nulla culpa culpa. In in labore incididunt pariatur sit.\r\nEa nulla voluptate Lorem tempor dolore occaecat officia occaecat cupidatat mollit aute in adipisicing.\r\n",
-            "beginDateTime": "2015-10-14T00:03:48+00:00",
-            "endDateTime": "2015-10-14T00:03:48+00:00",
-            "arrivalDateTime": "2015-10-14T00:03:48+00:00",
             "dpd": 10,
             "quadrantName": "Organisational",
             "division": "VIC",
-            "venueName": "fugiat sit eu nisi non cupidatat",
-            "address1": "691 Jefferson Avenue",
-            "address2": "elit officia dolore amet incididunt tempor",
-            "suburb": "Fresno",
-            "state": "VIC",
-            "postcode": 2045,
-            "country": "Australia",
-            "latitude": -22.427564,
-            "longitude": 51.87248,
             "isMultisession": true
         }
     ]
@@ -118,7 +105,7 @@ Get events by dates.
 
     [Events][]
     
-## Search events [/events/registered{?term}]
+## Search Events [/events/registered{?term}]
 
 ### /events/search{?term} [GET]
 Search upcoming events by event name.
@@ -165,7 +152,7 @@ A single event
         {
             "id": "EV169971",
             "displayName": "mollit enim velit dolore proident non excepteur proident",
-            "description": "Consequat sunt dolore nostrud do pariatur do est anim enim. In voluptate dolor nulla ea aliquip et esse dolor. Non in aliqua aliquip irure proident. Amet non adipisicing exercitation ea dolore id dolore cillum proident adipisicing.\r\nIpsum aliqua elit fugiat amet dolore aliqua occaecat proident aute ea irure. Elit ex dolor eu velit deserunt ad duis et laboris commodo non ea. Lorem dolor deserunt ad ut occaecat occaecat tempor laboris id in. Duis elit irure excepteur ipsum qui excepteur eiusmod voluptate elit dolor. Ipsum excepteur mollit laborum culpa non excepteur amet consequat exercitation elit aute incididunt. Anim eiusmod dolore minim aute occaecat laboris.\r\n",
+            "description": "Consequat voluptate proident.\r\nIpsumu atm aute occaecat laboris.\r\n",
             "beginDateTime": "2015-10-13T23:41:24+00:00",
             "endDateTime": "2015-10-13T23:41:24+00:00",
             "arrivalDateTime": "2015-10-13T23:41:24+00:00",
@@ -173,81 +160,17 @@ A single event
             "quadrantName": "Individual",
             "division": "National",
             "venueName": "enim mollit labore incididunt et eiusmod",
-            "address1": "706 Bushwick Avenue",
-            "address2": "sunt ullamco excepteur irure ea nostrud",
-            "suburb": "Norfolk",
-            "state": "SA",
-            "postcode": 5720,
-            "country": "Australia",
-            "latitude": 30.502864,
-            "longitude": -174.433674,
+            "address": {
+                "address1": "691 Jefferson Avenue",
+                "address2": "elit officia dolore amet incididunt tempor",
+                "suburb": "Fresno",
+                "state": "VIC",
+                "postcode": 2045,
+                "country": "Australia",
+                "latitude": -22.427564,
+                "longitude": 51.87248
+            },
             "isMultisession": true
-        }
-        ```
-
-    + Schema
-        ```
-        {
-            "description"": "An event",
-            "type": "object",
-            "properties": {
-            "id": {
-              "type": "string"
-            },
-            "displayName": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "beginDateTime": {
-              "type": "string"
-            },
-            "endDateTime": {
-              "type": "string"
-            },
-            "arrivalDateTime": {
-              "type": "string"
-            },
-            "dpd": {
-              "type": "integer"
-            },
-            "quadrantName": {
-              "type": "string"
-            },
-            "division": {
-              "type": "string"
-            },
-            "venueName": {
-              "type": "string"
-            },
-            "address1": {
-              "type": "string"
-            },
-            "address2": {
-              "type": "string"
-            },
-            "suburb": {
-              "type": "string"
-            },
-            "state": {
-              "type": "string"
-            },
-            "postcode": {
-              "type": "string"
-            },
-            "country": {
-              "type": "string"
-            },
-            "latitude": {
-              "type": "number"
-            },
-            "longitude": {
-              "type": "number"
-            },
-            "isMultisession": {
-              "type": "boolean"
-            }
         }
         ```
         
@@ -269,7 +192,6 @@ Get an event by event ID.
             {
                 "id": "EV100489",
                 "displayName": "occaecat labore est ex ad fugiat nulla fugiat",
-                "description": "Excepteur esse commodo irure fugiat excepteur fugiat nostrud.\r\nAd dolore quis irure mollit culpa cillum ea fugiat tempor Lorem incididunt ipsum. Minim sunt consequat consequat in proident.\r\n",
                 "beginDateTime": "2015-10-14T01:39:23+00:00",
                 "endDateTime": "2015-10-14T01:39:23+00:00"
             }
@@ -296,33 +218,9 @@ Get a list of sessions for an event.
         {
             "id": "EV121339",
             "displayName": "nulla et consequat eiusmod nisi aute nostrud consectetur",
-            "description": "Culpa qui non elit qui mollit et fugiat et duis qui sit do sint consectetur.\r\nOfficia sit tempor eu aliqua amet. Reprehenderit pariatur et officia magna velit sunt enim occaecat in.\r\n",
+            "description": "Culpa qui non elit.\r\nOfficia sit tempor eu aliqua amet. Reprehenderit enim occaecat in.\r\n",
             "beginDateTime": "2015-10-14T01:35:57+00:00",
             "endDateTime": "2015-10-14T01:35:57+00:00"
-        }
-        ```
-
-    + Schema
-        ```
-        {
-            "description"": "A session",
-            "type": "object",
-            "properties": {
-            "id": {
-              "type": "string"
-            },
-            "displayName": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "beginDateTime": {
-              "type": "string"
-            },
-            "endDateTime": {
-              "type": "string"
-            }
         }
         ```
 
@@ -333,7 +231,7 @@ Get a session by session ID.
 
     [Session][]
 
-## Event Speakers [/events/{eventId}/speakers]
+## Speakers [/events/{eventId}/speakers]
 
 + Model (application/json)
 
@@ -344,7 +242,6 @@ Get a session by session ID.
             {
                 "id": "1623965",
                 "name": "Larsen Garrison FAICD",
-                "bio": "Dolore Lorem laborum laboris aliqua commodo est tempor sunt.r\nSint tempor cupidatat eu in mollit quis. Eu consequat sunt ex reprehenderit esse laborum sunt est et in enim aute dolor.\r\n",
                 "photoUrl": "https://media.companydirectors.com.au/photos/vu9kq9i19k9.jpg"
             }
         ]
@@ -355,16 +252,7 @@ Get speakers of an event.
 
 + Response 200
 
-    [Event Speakers][]
-
-## Session Speakers [/sessions/{sessionId}/speakers]
-
-### /sessions/{sessionId}/speakers [GET]
-Get speakers of a session.
-
-+ Response 200
-
-    [Event Speakers][]
+    [Speakers][]
 
 ## Speaker [/speakers/{speakerId}]
 
@@ -376,7 +264,7 @@ Get speakers of a session.
         {
             "id": "1304625",
             "name": "Consuelo Malone MAICD",
-            "bio": "Culpa voluptate veniam amet cupidatat non veniam ad velit nisi velit id aliqua velit.\r\nExercitation commodo duis est elit commodo consectetur consectetur voluptate.\r\n",
+            "bio": "Culpa voluptate veniam .\r\nExercitation ullamco qui.\r\n",
             "photoUrl": "https://media.companydirectors.com.au/photos/mdah478pvi.jpg"
         }
         ```
@@ -400,14 +288,7 @@ Get speakers of a session.
                 "firstName": "Bettie",
                 "lastName": "Davenport",
                 "salutation": "Dr",
-                "postNominal": "FAICD",
-                "jobTitle": "commodo velit",
-                "organisation": "laboris tempor proident proident",
-                "bio": "Dolore culpa mollit aliquip anim eu.\r\nEsse voluptate sunt do velit aute cillum et sunt consectetur ipsum sunt non.\r\n",
-                "photoUrl": "https://media.companydirectors.com.au/photos/e9hrdym0a4i.jpg",
-                "linkedInUrl": "http://www.linkedin.com/in/haum1da38fr",
-                "twitterUrl": "http://www.twitter.com/p8wfd6de7b9",
-                "facebookUrl": "http://www.facebook.com/876lh74lsor"
+                "postNominal": "FAICD"
             }
         ]
         ```
@@ -437,7 +318,7 @@ List all public attendees.
             "postNominal": "FAICD",
             "jobTitle": "adipisicing tempor",
             "organisation": "nulla elit veniam Lorem",
-            "bio": "Laborum fugiat laborum aliquip amet labore.\r\nLorem Lorem incididunt ex et cillum elit adipisicing. Est dolor velit sint tempor quis et quis dolor duis culpa duis.\r\n",
+            "bio": "Laborum fugiat laborum aliquip amet labore.\r\nLorem Lorem incididunt ex et cillum.\r\n",
             "photoUrl": "https://media.companydirectors.com.au/photos/2b0ejfnipb9.jpg",
             "linkedInUrl": "http://www.linkedin.com/in/nflepfd2t9",
             "twitterUrl": "http://www.twitter.com/zw8aw1p2e29",
@@ -521,7 +402,7 @@ List all public attendees.
             "roomType": "Single",
             "checkinDateTime": "2015-10-14T00:03:48+00:00",
             "checkoutDateTime": "2015-10-16T00:03:48+00:00"
-          }
+        }
         ```
 
 ### /events/{eventId}/accommodation [GET]
