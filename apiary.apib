@@ -572,27 +572,88 @@ List all public attendees.
 
     [Notes][]
 
-## Event Polls [/events/{eventId}/polls]
+## Polls [/events/{eventId}/polls]
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+                "id": "ffa0bd65-15ed-4280-bec1-ce401dd85dae",
+                "pollUrl": "https://polls.companydirectors.com.au/5ad734909f"
+            }
+        ]
+        ```  
 
 ### /events/{eventId}/polls [GET]
 
 + Response 200 
 
-## Event Surveys [/events/{eventId}/surveys]
+    [Polls][]
+
+## Surveys [/events/{eventId}/surveys]
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+                "id": "ffa0bd65-15ed-4280-bec1-ce401dd85dae",
+                "surveyUrl": "https://surveys.companydirectors.com.au/5ad734909f"
+            }
+        ]
+        ```  
 
 ### /events/{eventId}/surveys [GET]
 
 + Response 200 
 
-## Event Feed [/events/{eventId}/feeds]
-The feed of posts (including status updates) and links published by event administrators.
+    [Surveys][]
+
+## Feeds [/events/{eventId}/feeds]
+The feeds of posts (including status updates) published by event administrators.
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+                "id": "3507845453",
+                "feedUrl": "https://feeds.companydirectors.com.au/5ad734909f"
+            }
+        ]
+        ```  
 
 ### /events/{eventId}/feeds [GET]
 
 + Response 200 
 
-## Twitter Hash Tags [/events/{eventId}/twitterhashtags]
+    [Feeds][]
 
-### /events/{eventId}/twitterhashtags [GET]
+## Hashtags [/events/{eventId}/hashtags]
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        [
+            {
+                "id": "66987874925",
+                "name": "Conference2015"
+            }
+        ]
+        ```
+
+### /events/{eventId}/hashtags [GET]
 
 + Response 200 
+
+    [Hashtags][]
+    
