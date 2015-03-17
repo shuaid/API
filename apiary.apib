@@ -378,6 +378,9 @@ List all attendees.
     [Administrators][]
 
 ## Accommodation [/events/{eventId}/accommodation]
+Get an attendee's accommodation details
+
++ Authentication required
 
 + Model (application/json)
 
@@ -385,20 +388,24 @@ List all attendees.
     
         ```
         {
-            "id": "fdc89a93-cb04-4f4b-9cc9-8d126286cb5c",
             "hotelName": "Mandarin Oriental",
             "hotelAddress": {
                 "address1": "691 Jefferson Avenue",
                 "address2": "Elit officia dolore amet incididunt tempor",
                 "suburb": "Fresno",
                 "state": "VIC",
-                "postcode": 2045,
-                "country": "Australia"
+                "postcode": "2045",
+                "country": "Australia",
+                "latitude": -22.427564,
+                "longitude": 51.87248
             },
+            "phone": "+61 2 6583 3505",
             "roomName": "Deluxe Park View Room",
             "roomType": "Single",
             "checkinDateTime": "2015-10-14T00:03:48+00:00",
-            "checkoutDateTime": "2015-10-16T00:03:48+00:00"
+            "checkoutDateTime": "2015-10-16T00:03:48+00:00",
+            "timeZone": "(GMT+09:30) Adelaide",
+            "transportation": "Transportation details"
         }
         ```
 
