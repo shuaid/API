@@ -83,7 +83,8 @@ A list of events
             "division": "VIC",
             "isMultisession": true,
             "beginDateTime": "2015-02-19T07:30:00+11:00",
-            "timeZone": "(GMT+09:30) Adelaide"
+            "timeZone": "(GMT+09:30) Adelaide",
+            "status": "open"
         }
     ]
         ```
@@ -111,7 +112,7 @@ Search upcoming events by event name.
 
     [Events][]
 
-## Registered Events [/events/registered{?status}]
+## Registered Events [/events/registered{?from}{?to}]
 A list of registered events of the current authenticated user
 
 + Authentication required
@@ -120,7 +121,8 @@ A list of registered events of the current authenticated user
 
 
 + Parameters
-    + status (required, string, `open`) ... One of: **open**, **closed**. Specifying `open` will get registered upcoming events. Specifying `closed` will get registered past events.
+    + from (optional, date, `2015-10-01`) ... Only Events from this date are returned, defaults to now.
+    + to (optional, date, `2015-10-31`) ... Only Events to this date are returned, defaults to one month from now.
 
 + Request
 
@@ -165,7 +167,8 @@ A single event
                 "latitude": -22.427564,
                 "longitude": 51.87248
             },
-            "isMultisession": true
+            "isMultisession": true,
+            "status": "open"
         }
         ```
         
@@ -188,7 +191,8 @@ Get an event by event ID.
                 "id": "EV100489",
                 "displayName": "occaecat labore est ex ad fugiat nulla fugiat",
                 "beginDateTime": "2015-10-14T01:39:23+00:00",
-                "endDateTime": "2015-10-14T01:39:23+00:00"
+                "endDateTime": "2015-10-14T01:39:23+00:00",
+                "status": "open"
             }
         ]
         ```
@@ -215,7 +219,8 @@ Get a list of sessions for an event.
             "displayName": "nulla et consequat eiusmod nisi aute nostrud consectetur",
             "description": "Culpa qui non elit.\r\nOfficia sit tempor eu aliqua amet. Reprehenderit enim occaecat in.\r\n",
             "beginDateTime": "2015-10-14T01:35:57+00:00",
-            "endDateTime": "2015-10-14T01:35:57+00:00"
+            "endDateTime": "2015-10-14T01:35:57+00:00",
+            "status": "open"
         }
         ```
 
