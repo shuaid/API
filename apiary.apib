@@ -67,7 +67,7 @@ The common HTTP Response Status Codes are used.
 # Group Event
 
 ## Events [/events{?from}{?to}]
-A list of events
+List of all available events within date range.
 
 + Model (application/json)
 
@@ -76,21 +76,33 @@ A list of events
         ```
     [
         {
-            "id": "EV111864",
-            "displayName": "ipsum ea sit aliqua irure pariatur est ea",
-            "dpd": 10,
-            "quadrantName": "Organisational",
-            "division": "VIC",
-            "isMultisession": true,
-            "beginDateTime": "2015-02-19T07:30:00+11:00",
-            "timeZone": "(GMT+09:30) Adelaide",
-            "status": "open"
+        "id": "EV119761",
+        "displayName": "Directors' Lunch with Elizabeth Proust AO FAICD",
+        "dpd": 5,
+        "quadrantName": "Organisational",
+        "division": "NSW",
+        "isMultisession": false,
+        "beginDateTime": "2015-06-27T08:00:00+10:00",
+        "timeZone": "(GMT+10:00) Canberra, Melbourne, Sydney",
+        "venue": {
+            "name": "The Ivy Room",
+            "address": {
+                "address1": "320 George St",
+                "address2": "elit officia dolore amet incididunt tempor",
+                "suburb": "SYDNEY",
+                "state": "NSW",
+                "postcode": "2000",
+                "country": "Australia",
+                "latitude": 151.207,
+                "longitude": -33.866678
+            }
+        },
+        "status": "Open"
         }
     ]
         ```
         
 ### /events{?from}{?to} [GET]
-Get events by dates.
 
 + Parameters
     + from (optional, date, `2015-10-01`) ... Only Events from this date are returned.
@@ -101,9 +113,11 @@ Get events by dates.
     [Events][]
     
 ## Search Events [/events/registered{?term}]
+Search upcoming events by event name.
+
++ This method has not been implemented.
 
 ### /events/search{?term} [GET]
-Search upcoming events by event name.
 
 + Parameters
     + term (required, string, `Directors+Briefing`) ... Search term (e.g. "Directors Briefing"). Make sure to URL encode the search term before making the request.
@@ -135,7 +149,7 @@ A list of registered events of the current authenticated user
     [Events][]
 
 ## Event [/events/{eventId}]
-A single event
+Retrieves details of an event.
 
 + Parameters
     + eventId (required, string, `EV169971`) ... ID of an Event 
@@ -152,34 +166,38 @@ A single event
             "beginDateTime": "2015-10-13T23:41:24+00:00",
             "endDateTime": "2015-10-13T23:41:24+00:00",
             "arrivalDateTime": "2015-10-13T23:41:24+00:00",
-            "timeZone": "(GMT+09:30) Adelaide",
             "dpd": 16,
             "quadrantName": "Individual",
+            "timeZone": "(GMT+09:30) Adelaide",
             "division": "National",
-            "venueName": "enim mollit labore incididunt et eiusmod",
-            "address": {
-                "address1": "691 Jefferson Avenue",
-                "address2": "elit officia dolore amet incididunt tempor",
-                "suburb": "Fresno",
-                "state": "VIC",
-                "postcode": "2045",
-                "country": "Australia",
-                "latitude": -22.427564,
-                "longitude": 51.87248
+            "venue": {
+                name: "Hilton Bar",
+                "address": {
+                    "address1": "691 Jefferson Avenue",
+                    "address2": "elit officia dolore amet incididunt tempor",
+                    "suburb": "Fresno",
+                    "state": "VIC",
+                    "postcode": "2045",
+                    "country": "Australia",
+                    "latitude": -22.427564,
+                    "longitude": 51.87248
+                }
             },
-            "isMultisession": true,
+            "isMultisession": false,
             "status": "open"
         }
         ```
         
 ### /events/{eventId} [GET]
-Get an event by event ID.
+
 
 + Response 200
 
     [Event][]
    
 ## Sessions [/events/{eventId}/sessions]
+
+Get a list of sessions for an event.
 
 + Model (application/json)
 
@@ -188,23 +206,27 @@ Get an event by event ID.
         ```
         [
             {
-                "id": "EV100489",
-                "displayName": "occaecat labore est ex ad fugiat nulla fugiat",
-                "beginDateTime": "2015-10-14T01:39:23+00:00",
-                "endDateTime": "2015-10-14T01:39:23+00:00",
-                "status": "open"
-            }
+                "id": "EV122407",
+                "displayName": "Director Nexus Meeting 1 Mr Rob Gerrand AM",
+                "beginDateTime": "2015-02-06T08:00:00+11:00",
+                "endDateTime": "2015-02-06T10:00:00+11:00",
+                "timeZone": "(GMT+10:00) Canberra, Melbourne, Sydney",
+                "status": "Open"
+            },
+            ...
         ]
         ```
 
 ### /events/{eventId}/sessions [GET]
-Get a list of sessions for an event.
+
 
 + Response 200
 
     [Sessions][]
 
 ## Session [/sessions/{sessionId}]
+
+Retrieves details of a session.
 
 + Parameters
     + sessionId (required, string, `EV121339`) ... ID of a session 
@@ -215,24 +237,25 @@ Get a list of sessions for an event.
     
         ```
         {
-            "id": "EV121339",
-            "displayName": "nulla et consequat eiusmod nisi aute nostrud consectetur",
-            "description": "Culpa qui non elit.\r\nOfficia sit tempor eu aliqua amet. Reprehenderit enim occaecat in.\r\n",
-            "beginDateTime": "2015-10-14T01:35:57+00:00",
-            "endDateTime": "2015-10-14T01:35:57+00:00",
-            "status": "open"
+            "id": "EV122407",
+            "displayName": "Director Nexus Meeting 1 Mr Rob Gerrand AM",
+            "description": "Director Nexus Meeting 1 Rob Gerrand AM in melbourne",
+            "beginDateTime": "2015-02-06T08:00:00+11:00",
+            "endDateTime": "2015-02-06T10:00:00+11:00",
+            "timeZone": "(GMT+10:00) Canberra, Melbourne, Sydney",
+            "status": "Open"
         }
         ```
 
 ### /sessions/{sessionId} [GET]
-Get a session by session ID.
+
 
 + Response 200
 
     [Session][]
 
 ## Speakers [/events/{eventId}/speakers]
-
+Get list of speakers presenting on the event.
 + Model (application/json)
 
     + Body
@@ -247,19 +270,22 @@ Get a session by session ID.
                 "postNominal": "FAICD",
                 "honorifics": "AO",
                 "photoUrl": "https://media.companydirectors.com.au/photos/vu9kq9i19k9.jpg",
-                "isMainSpeaker": true
-            }
+                "isMainSpeaker": true,
+                "gender": "Male"
+            },
+            ...
         ]
         ```
 
 ### /events/{eventId}/speakers [GET]
-Get speakers of an event.
+
 
 + Response 200
 
     [Speakers][]
 
 ## Speaker [/speakers/{speakerId}]
+Get details of speakers.
 
 + Model (application/json)
 
@@ -273,8 +299,9 @@ Get speakers of an event.
             "salutation": "Dr",
             "postNominal": "FAICD",
             "honorifics": "AO",
+            "photoUrl": "https://media.companydirectors.com.au/photos/mdah478pvi.jpg",
             "bio": "Culpa voluptate veniam .\r\nExercitation ullamco qui.\r\n",
-            "photoUrl": "https://media.companydirectors.com.au/photos/mdah478pvi.jpg"
+            "gender": "male"
         }
         ```
 
@@ -285,7 +312,8 @@ Get speakers of an event.
     [Speaker][]
 
 ## Attendees [/events/{eventId}/attendees]
-
+List all attendees on an event. This will only works if requestor is registered to attend this particular event.
++ Authorization Required
 + Model (application/json)
 
     + Body
@@ -304,14 +332,15 @@ Get speakers of an event.
         ```
 
 ### /events/{eventId}/attendees [GET]
-List all attendees.
+
 
 + Response 200
 
     [Attendees][]
 
 ## Attendee [/events/{eventId}/attendees/{attendeeId}]
-
+Retrieve details of attendee of an event.
++ Authorization Required
 + Parameters
     + attendeeId (required, string, `1453064`) ... ID of an attendee. 
 
@@ -327,8 +356,8 @@ List all attendees.
             "salutation": "Dr",
             "postNominal": "FAICD",
             "honorifics": "AO",
-            "jobTitle": "adipisicing tempor",
-            "organisation": "nulla elit veniam Lorem",
+            "jobTitle": "Managing Director",
+            "organisation": "XYZ Enterprise Ltd",
             "bio": "Laborum fugiat laborum aliquip amet labore.\r\nLorem Lorem incididunt ex et cillum.\r\n",
             "photoUrl": "https://media.companydirectors.com.au/photos/2b0ejfnipb9.jpg",
             "linkedInUrl": "http://www.linkedin.com/in/nflepfd2t9",
@@ -344,6 +373,7 @@ List all attendees.
     [Attendee][]
 
 ## Sponsors [/events/{eventId}/sponsors]
+Retrieves list of event sponsors.
 
 + Model (application/json)
 
@@ -354,9 +384,10 @@ List all attendees.
             {
             "id": "500047",
             "name": "KPMG",
-            "logoUrl": "https://media.companydirectors.com.au/photos/e9hrdym0a4i.gif",
+            "logoUrl": "https://media.companydirectors.com.au/photos/e9hrdym0a4i.jpg",
             "websiteUrl": "http://www.kpmg.com.au"
-            }
+            },
+            ...
         ]
         ```
 
@@ -367,7 +398,7 @@ List all attendees.
     [Sponsors][]
 
 ## Administrators [/events/{eventId}/administrators]
-
+Retrieves contact person or event administrator for the event.
 + Model (application/json)
 
     + Body
@@ -375,11 +406,10 @@ List all attendees.
         ```
         [
             {
-                "id": "ba8414da-4439-4ed1-8bda-5caf0b759f9e",
-                "firstName": "Barrett",
-                "lastName": "Chaney",
+                "firstName": "Claire",
+                "lastName": "Bailey",
                 "phone": "61 2 6583 3505",
-                "email": "barrettchaney@zilphur.com"
+                "email": "cbailey@aicd.com.com"
             
             }
         ]
@@ -392,7 +422,7 @@ List all attendees.
     [Administrators][]
 
 ## Accommodation [/events/{eventId}/accommodation]
-Get an attendee's accommodation details
+Retrieves accommodation details that attendee has booked for the particular event
 
 + Authentication required
 
@@ -419,7 +449,7 @@ Get an attendee's accommodation details
             "checkinDateTime": "2015-10-14T00:03:48+00:00",
             "checkoutDateTime": "2015-10-16T00:03:48+00:00",
             "timeZone": "(GMT+09:30) Adelaide",
-            "transportation": "Transportation details"
+            "transportation": "For details on how to get to and from the hotel, please visit transportKL website and search via method of transport"
         }
         ```
 
@@ -430,14 +460,13 @@ Get an attendee's accommodation details
     [Accommodation][]
 
 ## Transportation [/events/{eveintId}/transportation]
-
+Retrieves transportation details on how to get into the venue
 + Model (application/json)
 
     + Body
     
         ```
         {
-            "id": "96c7c260-9403-4913-970d-a0994cf813f8",
             "description": "Pariatur ipsum aute sit eu ad.\r\nCommodo id laboris pariatur velit.\r\n"
         }
         ```  
@@ -449,7 +478,7 @@ Get an attendee's accommodation details
     [Transportation][]
 
 ## Notes [/events/{eventId}/note]
-
+This method has not been implemented.
 + Model (application/json)
 
     + Body
@@ -472,7 +501,7 @@ Get an attendee's accommodation details
     [Notes][]
 
 ## Polls [/events/{eventId}/polls]
-
+This method has not been implemented.
 + Model (application/json)
 
     + Body
@@ -493,7 +522,7 @@ Get an attendee's accommodation details
     [Polls][]
 
 ## Surveys [/events/{eventId}/surveys]
-
+This method has not been implemented.
 + Model (application/json)
 
     + Body
@@ -536,7 +565,7 @@ The feeds of posts (including status updates) published by event administrators.
     [Feeds][]
 
 ## Hashtags [/events/{eventId}/hashtags]
-
+Retrieves list of hashtags assigned to the event (without '#' symbol)
 + Model (application/json)
 
     + Body
