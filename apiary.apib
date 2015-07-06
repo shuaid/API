@@ -594,7 +594,7 @@ DO consent status.
     
         ```
         {
-            "status": "accepted"
+            "consent": "accepted"
         }
         ```  
   
@@ -612,12 +612,19 @@ DO consent status.
 
 ### /profile/do/consent [POST]
 
-+ Request
++ Request (application/json)
 
     + Headers
 
             Authorization: Bearer tokenString
-            
-+ Response 200
+ 
+    + Body
+    
+        ```
+        {
+            "consent": "accepted"
+        }  
+        
++ Response 201
 
     [DO Consent][]      
