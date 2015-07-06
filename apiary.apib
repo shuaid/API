@@ -581,3 +581,43 @@ Retrieves list of hashtags assigned to the event (without '#' symbol)
 
     [Hashtags][]
     
+# Group Profile
+
+## DO Consent [/profile/do/consent]
+DO consent status.
+
++ Authorization Required
+
++ Model (application/json)
+
+    + Body
+    
+        ```
+        {
+            "status": "accepted"
+        }
+        ```  
+  
+### /profile/do/consent [GET]
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer tokenString
+            
++ Response 200
+
+    [DO Consent][]       
+
+### /profile/do/consent [POST]
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer tokenString
+            
++ Response 200
+
+    [DO Consent][]      
