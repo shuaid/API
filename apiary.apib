@@ -584,7 +584,7 @@ Retrieves list of hashtags assigned to the event (without '#' symbol)
 # Group Profile
 
 ## DO Consent [/profile/do/consent]
-DO consent status.
+DO consent status
 
 + Authorization Required
 
@@ -599,6 +599,8 @@ DO consent status.
         ```  
   
 ### /profile/do/consent [GET]
+Get the DO consent of the current authenticated user.
+Possible values of the consent field: "accepted", "rejected", "" 
 
 + Request
 
@@ -608,9 +610,12 @@ DO consent status.
             
 + Response 200
 
+
     [DO Consent][]       
 
 ### /profile/do/consent [POST]
+Update the DO consent for the current authenticated user
+Possible values of the consent field: "accepted", "rejected", "" 
 
 + Request (application/json)
 
