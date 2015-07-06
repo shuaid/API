@@ -594,13 +594,14 @@ DO consent status
     
         ```
         {
-            "consent": "accepted"
+            "consentStatus": "accepted"
         }
         ```  
   
 ### /profile/do/consent [GET]
-Get the DO consent of the current authenticated user.
-Possible values of the consent field: "accepted", "rejected", "" 
+Get the DO consent of the current authenticated user
+
+Possible values of the consent field: <code>"accepted", "rejected", "noconsent"</code>
 
 + Request
 
@@ -615,7 +616,8 @@ Possible values of the consent field: "accepted", "rejected", ""
 
 ### /profile/do/consent [POST]
 Update the DO consent for the current authenticated user
-Possible values of the consent field: "accepted", "rejected", "" 
+
+Possible values of the consent field: <code>"accepted", "rejected", "noconsent"</code> 
 
 + Request (application/json)
 
@@ -627,7 +629,7 @@ Possible values of the consent field: "accepted", "rejected", ""
     
         ```
         {
-            "consent": "accepted"
+            "consentStatus": "accepted"
         }  
         
 + Response 201
