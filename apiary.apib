@@ -638,8 +638,8 @@ Possible values of the consent field: <code>"accepted", "rejected", "noconsent"<
     [DO Consent][]    
     
 # Group Profile API v.1
-## DPD Evidence [/api/dpd/evidences/criteria]
-DO consent status
+## DPD Evidence Criteria [/api/dpd/evidences/criteria]
+
 ### /api/dpd/evidences/criteria [GET]
 Get File Criteria
 
@@ -701,4 +701,38 @@ Upload DPD evidence through api
 + Response 200
 
 
-    [DO Consent][]       
+    + Body
+    
+        ```
+{
+     "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
+     "status": "Error",
+     "filename:"attendanceReceipt.jpg",
+     "message": "File must be less than 5 MB in size"
+}
+
+### /api/dpd/evidences{?cpdpointid} [DELETE]
+Upload DPD evidence through api
+
++ Parameters
+    + cpdpointid (required, Guid, `25892e17-80f6-415f-9c65-7395632f0223`) ... Guid of the DPD activity
+        
++ Request
+    + Headers
+
+            Authorization: Bearer tokenString
+            
+
+            
++ Response 200
+
+
+    + Body
+    
+        ```
+{
+     "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
+     "status": "Successful"
+}
+
+  
