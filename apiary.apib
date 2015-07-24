@@ -635,4 +635,70 @@ Possible values of the consent field: <code>"accepted", "rejected", "noconsent"<
         
 + Response 201
 
-    [DO Consent][]      
+    [DO Consent][]    
+    
+# Group Profile API v.1
+## DPD Evidence [/api/dpd/evidences/criteria]
+DO consent status
+### /api/dpd/evidences/criteria [GET]
+Get File Criteria
+
+Returns file criteria for evidence.
+No authorization required.
+Maximum size is in bytes.
++ Request (application/json)
+
++ Response 200
+
+    + Body
+    
+        ```
+{
+     "AcceptedFormats": [
+         {
+             "type": "image/jpeg" 
+        },
+         {
+             "type": "image/jpeg" 
+        },
+         {
+             "type": "application/pdf" 
+        },
+         {
+             "type": "image/png" 
+        },
+         {
+             "type": "image/bmp" 
+        } 
+    ],
+     "MaxSize": 5000000 
+}
+        ```  
+## DPD Evidence [/api/dpd/evidences{?cpdpointid}{?filename}]
+### /api/dpd/evidences{?cpdpointid}{?filename} [POST]
+Upload DPD evidence through api
+
++ Parameters
+    + cpdpointid (required, Guid, `25892e17-80f6-415f-9c65-7395632f0223`) ... Guid of the DPD activity
+    + filename (required, string, `name.jpg`) ... Name of the file to be uploaded.
+        
++ Request
+    + Headers
+
+            Authorization: Bearer tokenString
+            Content-Length: int size of content in bytes, e.g. 1024 for 1 KB
+            Content-Type: string MIME type of file to be uploaded, e.g. application/pdf, image/jpeg
+            
+            
+    + Body
+      ```
+{
+  file content here using base64 encoding
+}
+
+    
+            
++ Response 200
+
+
+    [DO Consent][]       
