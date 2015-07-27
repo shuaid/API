@@ -583,7 +583,7 @@ Retrieves list of hashtags assigned to the event (without '#' symbol)
     
 # Group Profile
 
-## DO Consent [/profile/do/consent]
+## DO Info [/profile/do]
 DO consent status
 
 + Authorization Required
@@ -594,15 +594,13 @@ DO consent status
     
         ```
         {
-            "consentStatus": "accepted",
-            "modifiedAt": "2015-06-27T08:00:00+10:00"
+            "IsDOSubscriber": true,
+            "DOTransactionDate": "2015-06-27T08:00:00+10:00"
         }
         ```  
   
-### /profile/do/consent [GET]
-Get the DO consent of the current authenticated user
-
-Possible values of the consent field: <code>"accepted", "rejected", "noconsent"</code>
+### /profile/do [GET]
+Get the DO information of the current authenticated user
 
 + Request
 
@@ -612,31 +610,8 @@ Possible values of the consent field: <code>"accepted", "rejected", "noconsent"<
             
 + Response 200
 
+    [DO Info][]       
 
-    [DO Consent][]       
-
-### /profile/do/consent [POST]
-Update the DO consent for the current authenticated user
-
-Possible values of the consent field: <code>"accepted", "rejected", "noconsent"</code> 
-
-+ Request (application/json)
-
-    + Headers
-
-            Authorization: Bearer tokenString
- 
-    + Body
-    
-        ```
-        {
-            "consentStatus": "accepted"
-        }  
-        
-+ Response 201
-
-    [DO Consent][]    
-    
 # Group Profile API v.1
 ## DPD Evidence Criteria [/api/dpd/evidences/criteria]
 
