@@ -723,5 +723,57 @@ Remove DPD evidence attached to DPD activity identified by CPDPointId
     "status": "Successful"
 }
         ``` 
+## DPD Activity [/api/dpd]
+### Create DPD Activity  [POST]
+Create new DPD activity.
 
+
++ Request (application/json)
+Points is array of integer specifying the dpd point for this activity. If more than one DPD Points specified, splitted DPD will be created for each point.
+Example:
+  Points: [15,15] will create split DPD activities
+  Points: [30] will create only single DPD activity
+    + Headers
+
+            Authorization: Bearer tokenString
+            
+            
+    + Body
+      
+        ```
+{
+    "CompletedDate": "12-07-2015",
+    "EffectiveDate": "23-07-2015",
+    "Provider": "Insitute of Management Australia",
+    "Title": "Attended Management Seminar",
+    "Description": "Three days focus seminar on new workforce",
+    "ActivityTypeID": "398D7C87-2E25-E211-A5EC-00155D026BDE",
+    "QuadrantID": "BB9C8C56-2D25-E211-A5EC-00155D026BDE",
+    "Points": [15,15]
+}
+        ```
+    
++ Response 200 
+
+
+    + Body
+    
+        ```
+{
+    "CPDPointId": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
+    "status": "successful"
+}
+        ```
+            
++ Response 500 
+If there is any issue on creating DPD point, then CPDPointId will not returned and message detailing the error will be returned instead.
+
+    + Body
+    
+        ```
+{
+    "status": "Error",
+    "message": "File must be less than 5 MB in size"
+}
+        
   
