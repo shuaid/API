@@ -679,19 +679,21 @@ Upload DPD evidence to server and attach to DPD Activity identified by CPDPointI
     "status": "Successful",
     "filename:"attendanceReceipt.jpg"
 }
+        ``` 
             
-+ Response 500  (application/json)
++ Response 500 
 
 
     + Body
     
         ```
     {
-         "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
-         "status": "Error",
-         "filename:"attendanceReceipt.jpg",
-         "message": "File must be less than 5 MB in size"
+        "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
+        "status": "Error",
+        "filename:"attendanceReceipt.jpg",
+        "message": "File must be less than 5 MB in size"
     }
+            ``` 
 
 ### /api/dpd/evidences [DELETE]
 Remove DPD evidence attached to DPD activity identified by CPDPointId
@@ -706,7 +708,8 @@ Remove DPD evidence attached to DPD activity identified by CPDPointId
       ```
     {
         CPDPointId="00389801-1834-e511-ae8f-b8ca3a8699e2"
-    }        
+    }      
+            ``` 
 
             
 + Response 200 (application/json)
@@ -715,8 +718,9 @@ Remove DPD evidence attached to DPD activity identified by CPDPointId
     
         ```
 {
-     "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
-     "status": "Successful"
+    "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
+    "status": "Successful"
 }
+        ``` 
 
   
