@@ -649,15 +649,11 @@ Maximum size is in bytes.
      "MaxSize": 5000000 
 }
         ```  
-## DPD Evidence [/api/dpd/evidences{?cpdpointid}{?filename}]
-### /api/dpd/evidences{?cpdpointid}{?filename} [POST]
+## DPD Evidence [/api/dpd/evidences]
+### /api/dpd/evidences [POST]
 Upload DPD evidence through api
 
-+ Parameters
-    + cpdpointid (required, Guid, `25892e17-80f6-415f-9c65-7395632f0223`) ... Guid of the DPD activity
-    + filename (required, string, `name.jpg`) ... Name of the file to be uploaded.
-        
-+ Request
++ Request (application/json)
     + Headers
 
             Authorization: Bearer tokenString
@@ -673,7 +669,7 @@ Upload DPD evidence through api
 
     
             
-+ Response 200
++ Response 200  (application/json)
 
 
     + Body
