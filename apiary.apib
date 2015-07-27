@@ -651,25 +651,36 @@ Maximum size is in bytes.
         ```  
 ## DPD Evidence [/api/dpd/evidences]
 ### /api/dpd/evidences [POST]
-Upload DPD evidence through api
+Upload DPD evidence to server and attach to DPD Activity identified by CPDPointId
 
 + Request (application/json)
     + Headers
 
             Authorization: Bearer tokenString
-            Content-Length: int size of content in bytes, e.g. 1024 for 1 KB
-            Content-Type: string MIME type of file to be uploaded, e.g. application/pdf, image/jpeg
             
             
     + Body
       ```
 {
-  file content here using base64 encoding
+  CPDPointId="00389801-1834-e511-ae8f-b8ca3a8699e2",
+  filename="attendanceReceipt.jpg",
+  content= file content here using base64 encoding
 }
 
     
-            
 + Response 200  (application/json)
+
+
+    + Body
+    
+        ```
+{
+     "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
+     "status": "Successful",
+     "filename:"attendanceReceipt.jpg"
+}
+            
++ Response 500  (application/json)
 
 
     + Body
@@ -682,21 +693,23 @@ Upload DPD evidence through api
      "message": "File must be less than 5 MB in size"
 }
 
-### /api/dpd/evidences{?cpdpointid} [DELETE]
-Upload DPD evidence through api
+### /api/dpd/evidences [DELETE]
+Remove DPD evidence attached to DPD activity identified by CPDPointId
 
-+ Parameters
-    + cpdpointid (required, Guid, `25892e17-80f6-415f-9c65-7395632f0223`) ... Guid of the DPD activity
-        
-+ Request
+
++ Request (application/json)
     + Headers
 
             Authorization: Bearer tokenString
             
+    + Body
+      ```
+{
+  CPDPointId="00389801-1834-e511-ae8f-b8ca3a8699e2"
+}        
 
             
-+ Response 200
-
++ Response 200 (application/json)
 
     + Body
     
