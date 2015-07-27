@@ -660,13 +660,14 @@ Upload DPD evidence to server and attach to DPD Activity identified by CPDPointI
             
             
     + Body
-      ```
-    {
-        "CPDPointId"="00389801-1834-e511-ae8f-b8ca3a8699e2",
-        "filename"="attendanceReceipt.jpg",
-        "content"= file content here using base64 encoding
-    }
-        ```  
+      
+        ```
+{
+    "CPDPointId": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
+    "filename": "attendanceReceipt.jpg",
+    "content": <content file here in Base64 encoding>
+}
+        ```
     
 + Response 200 
 
@@ -675,11 +676,11 @@ Upload DPD evidence to server and attach to DPD Activity identified by CPDPointI
     
         ```
 {
-    "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
-    "status": "Successful",
-    "filename:"attendanceReceipt.jpg"
+    "CPDPointId": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
+    "status": "successful",
+    "filename": "attendanceReceipt.jpg"
 }
-        ``` 
+        ```
             
 + Response 500 
 
@@ -687,13 +688,12 @@ Upload DPD evidence to server and attach to DPD Activity identified by CPDPointI
     + Body
     
         ```
-    {
-        "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04",
-        "status": "Error",
-        "filename:"attendanceReceipt.jpg",
-        "message": "File must be less than 5 MB in size"
-    }
-            ``` 
+{
+    "status": "Error",
+    "filename": "attendanceReceipt.jpg",
+    "message": "File must be less than 5 MB in size"
+}
+        ```
 
 ### Delete evidence [DELETE]
 Remove DPD evidence attached to DPD activity identified by CPDPointId
@@ -704,12 +704,13 @@ Remove DPD evidence attached to DPD activity identified by CPDPointId
 
             Authorization: Bearer tokenString
             
-    + Body
-      ```
-    {
-        CPDPointId="00389801-1834-e511-ae8f-b8ca3a8699e2"
-    }      
-            ``` 
+  + Body
+    
+        ```
+{
+    "CPDPointID": "a2d870b4-72e9-e411-9e3f-00155dfd9a04"
+}
+        ```
 
             
 + Response 200 (application/json)
