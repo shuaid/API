@@ -697,13 +697,14 @@ Upload DPD evidence to server and attach to DPD Activity identified by CPDPointI
 
 ### Delete evidence [DELETE]
 Remove DPD evidence attached to DPD activity identified by CPDPointId
+When DELETE verb is restricted by firewall, you can do POST request with Header X-HTTP-Method-Override : DELETE.
 
 
 + Request (application/json)
     + Headers
 
             Authorization: Bearer tokenString
-            
+            X-HTTP-Method-Override: DELETE (optional See notes)
   + Body
     
         ```
@@ -723,6 +724,7 @@ Remove DPD evidence attached to DPD activity identified by CPDPointId
     "status": "Successful"
 }
         ``` 
+
 ## DPD Activity [/api/dpd]
 ### Create DPD Activity  [POST]
 Create new DPD activity.
