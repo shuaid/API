@@ -781,3 +781,186 @@ If there is any issue on creating DPD point, then CPDPointId will not returned a
 }
         
   
+# Group Commerce
+## Registered Events [/api/events/registered{?eventCode}]
+### /api/events/registered{?eventCode} [GET]
+Returns details registration information the current user are registered to or user is purchaser of the registration (Transaction Details.Customer ID = current user).
++ Authentication Required
++ Parameters
+    + eventCode (required, string, `N150626LU1`) ... Event code for the event to be retrieved (e.g.N150626LU1).
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer tokenString
+            
+            
+    
++ Response 200 
+
+
+    + Body
+    
+        ```
+{
+    "id": "EV119761",
+    "eventCode": "N150626LU1",
+    "displayName": "Directors' Lunch with Elizabeth Proust AO FAICD",
+    "division": "NSW",
+    "beginDateTime": "2015-06-27T08:00:00+10:00",
+    "endDateTime": "2015-06-27T012:00:00+10:00",
+    "arrivalDateTime": "2015-06-27T07:30:00+10:00",
+    "timeZone": "(GMT+10:00) Canberra, Melbourne, Sydney",
+    "venue": {
+      "name": "The Ivy Room",
+      "address": {
+        "address1": "320 George St",
+        "address2": " ",
+        "suburb": "SYDNEY",
+        "state": "NSW",
+        "postcode": "2000",
+        "country": "Australia",
+        "latitude": 151.207,
+        "longitude": -33.866678
+      }
+    },
+    "registration": {
+       "type": "table",
+       "quantity": 10,
+       "attendees": [{  
+            "contactId": "0054869",
+            "email": "johnsmith@company.com",
+            "name": "Mr. John Smith, FAICD",
+            "title": "Managing Director",
+            "company": "Company Enterprise Pty Ltd",
+            "groupName ": "Commonwealth Bank",
+            "dietaryRequirement": "Kosher"
+          }, {
+            "contactId": "1861986",
+            "email": "cwhite@bigenterprise.com",
+            "name": "Ms.Carolyn White, MAICD",
+            "title": "CEO",
+            "company": "Big Enterprise Ltd",
+            "groupName": "Commonwealth Bank",
+            "dietaryRequirement": "Vegetarian"
+       }]
+    }
+  }
+
+        ```
+
++ Response 404 
+Below is sample response if the event code supplied are invalid or not found 
+
+    + Body
+    
+        ```
+{
+...
+}
+     ```   
+### Save Registration Details [POST]
+Save registration details for upcoming event.
++ Authentication Required
++ Parameters
+    + eventCode (required, string, `N150626LU1`) ... Event code for the event to be retrieved (e.g.N150626LU1).
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer tokenString
+            
+ + Body
+    
+        ```
+[{
+  "email": "johnsmith@company.com",
+  "name": "Mr. John Smith, FAICD",
+  "title": "CEO",
+  "company": "Company Enterprise Pty Ltd",
+  "groupName ": "Commonwealth Bank",
+  "dietaryRequirement": "Kosher"
+}, {
+  "email": "cwhite@bigenterprise.com",
+  "name": "Ms.Carolyn White, MAICD",
+  "title": "CFO",
+  "company": "Big Enterprise Ltd",
+  "groupName": "Commonwealth Bank",
+  "dietaryRequirement": "Allergic to fish and gluten"
+ }, {
+   "email": "rrowan@bigenterprise.com",
+   "name": "Rachel Rowan ",
+   "title": "General Manager",
+   "company": "Big Enterprise Ltd",
+   "groupName": "Commonwealth Bank",
+   "dietaryRequirement": "vegetarian"
+}]
+
+
+        ```
++ Response 200 
+
+
+    + Body
+    
+        ```
+{
+    "eventCode": "N150626LU1",
+    "status": "Successful"
+}
+
+
+        ```
+
++ Response 400 
+
+
+    + Body
+    
+        ```
+{
+    "eventCode": "N150626LU1",
+    "status": "Error",
+    "message": "This event has occured in the past"
+}
+
+
+
+        ```
+        
+## Events Attendance [/api/events/attendee{?email}]
+### /api/events/attendee{?email} [GET]
+Returns user special requirement related to event registration
++ Authentication Required
++ Parameters
+    + email (required, string, `jsmith@aicd.com.au`) ... Registered email of user 
+Note. Only either email or id are required. If both supplied, id will take precedence over email
++ Response 200 
+
+
+    + Body
+    
+        ```
+{
+   "contactId": "0054869",
+   "email": "johnsmith@company.com",
+   "name": "Mr. John Smith, FAICD",
+   "title": "Managing Director",
+   "company": "Company Enterprise Pty Ltd",
+   "dietaryRequirement": "Kosher"
+}
+
+
+
+        ```
+
++ Response 404 
+
+
+    + Body
+    
+        ```
+{
+}
